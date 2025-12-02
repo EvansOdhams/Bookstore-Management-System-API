@@ -9,6 +9,7 @@ Usage:
 To stop the server, press CTRL+C
 """
 
+import os
 import sys
 from pathlib import Path
 
@@ -26,11 +27,12 @@ if __name__ == '__main__':
     print("=" * 60)
     print("Bookstore Management System API - Production Server")
     print("=" * 60)
+    port = int(os.getenv("PORT", "5000"))
     print("Server: Waitress WSGI Server")
     print("Mode: Production (Debug: OFF)")
-    print("URL: http://0.0.0.0:5000")
-    print("API Docs: http://localhost:5000/apidocs")
-    print("Health: http://localhost:5000/health")
+    print(f"Binding to: 0.0.0.0:{port}")
+    print("API Docs: /apidocs")
+    print("Health: /health")
     print("=" * 60)
     print("\nDefault API Keys:")
     print("  - test-api-key-123 (admin)")
@@ -42,5 +44,5 @@ if __name__ == '__main__':
     # Start Waitress server
     # threads=4 means 4 worker threads for handling requests
     # This is suitable for moderate traffic
-    serve(app, host='0.0.0.0', port=5000, threads=4)
+    serve(app, host='0.0.0.0', port=port, threads=4)
 
